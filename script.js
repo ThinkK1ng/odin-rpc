@@ -8,38 +8,83 @@ function getComputerChoice(arr) {
   const randomChoice = Math.floor(Math.random() * arr.length);
   return arr[randomChoice];
 }
-// creating variable for choosing rock, paper, or scissors
-const randomComputerChoice = getComputerChoice(choices);
-console.log(randomComputerChoice);
 
-// function to run on "Play Game" button click
+// function to acquire the human's choice
 function getHumanChoice(askChoice) {
   // Creating a variable with a prompt as a value for the user choice.
   askChoice = prompt(
     "Can you beat the computer!? Input rock, paper, or scissors to test your luck!"
   );
   console.log("button clicked");
-  if (askChoice === choices[0]) {
-      console.log("rock");
-  } else if (askChoice === choices[1]) {
-      console.log("paper");
-  } else if (askChoice === choices[2]) {
-      console.log("scissors");
+  askChoice = askChoice.toLowerCase();
+  if (
+    askChoice === choices[0] ||
+    askChoice === choices[1] ||
+    askChoice === choices[2]
+  ) {
+    return askChoice;
   } else {
     // run this code if the user doesn't make a selection or inputs a different word
-      let retry = prompt("You haven't made a selection! Input rock, paper, or scissors.");
-      if (retry === choices[0]) {
-        console.log("rock");
-      } else if (retry === choices[1]) {
-        console.log("paper");
-    } else if (retry === choices[2]) {
-        console.log("scissors");
+    let retry = prompt(
+      "You haven't made a selection! Input rock, paper, or scissors."
+    );
+    retry = retry.toLowerCase();
+    if (retry === choices[0] || retry === choices[1] || retry === choices[2]) {
+      return retry;
     }
   }
 }
 
 // creating button variable
-button = document.getElementById("bttn");
+button = document.querySelector("#bttn");
 
-// creating event listener for executing the getHumanChoice function
-button.addEventListener("click", getHumanChoice);
+// creating score variables
+let humanScore = 0;
+let computerScore = 0;
+
+// creating function for playing rounds in the game.
+function playRound(humanChoice, computerChoice) {
+  // if the player wins
+  if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "rock") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+  ) {
+    humanScore++;
+    console.log(
+      `The Player wins! The score is now Player: ${humanScore} Computer: ${computerScore}`
+    );
+  }
+  // if the computer wins
+  else if (
+    (humanChoice === "rock" && computerChoice === "paper") ||
+    (humanChoice === "paper" && computerChoice === "scissors") ||
+    (humanChoice === "scissors" && computerChoice === "rock")
+  ) {
+    computerScore++;
+    console.log(
+      `Oh no! The computer won! The score is now Player: ${humanScore} Computer: ${computerScore}`
+    );
+  }
+  // if it is a draw
+  else if (
+    (humanChoice === "rock" && computerChoice === "rock") ||
+    (humanChoice === "paper" && computerChoice === "paper") ||
+    (humanChoice === "scissors" && computerChoice === "scissors")
+  ) {
+    console.log(
+      `It's a draw! The score is now Player: ${humanScore} Computer: ${computerScore}`
+    );
+  }
+}
+
+// creating event listener for executing the the playRound function
+button.addEventListener("click", () => {
+  const humanSelection = getHumanChoice();
+  const randomComputerChoice = getComputerChoice(choices);
+
+  console.log("Human choice:", humanSelection);
+  console.log("Computer choice:", randomComputerChoice);
+
+  playRound(humanSelection, randomComputerChoice);
+});
