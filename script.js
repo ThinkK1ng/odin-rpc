@@ -1,6 +1,6 @@
 // console.log('Hello World');
 
-// Creating variables
+// Creating choices variable
 const choices = ["rock", "paper", "scissors"];
 
 // creating get computer choice function
@@ -38,10 +38,6 @@ function getHumanChoice(askChoice) {
 // creating button variable
 button = document.querySelector("#bttn");
 
-// creating score variables
-let humanScore = 0;
-let computerScore = 0;
-
 // creating function for playing rounds in the game.
 function playRound(humanChoice, computerChoice) {
   // if the player wins
@@ -78,13 +74,34 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
+// Play Game function
+function playGame() {
+  // creating score variables
+  let humanScore = 0;
+  let computerScore = 0;
+  const humanSelection = getHumanChoice(); // Get human choice on each click
+  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
+  // creating for loop to play the round 5 times
+  for (let i = 0; i < 5; i++) {
+    playRound(humanSelection, randomComputerChoice);
+  }
+  // declare winner
+  if (humanScore > computerScore) {
+    console.log("You did it! You've won the game! Congratulations, player!");
+  } else if (computerScore > humanScore) {
+    console.log("Oh no! The computer has won! AI World domination is upon us!");
+  }
+}
+
 // creating event listener for executing the the playRound function
 button.addEventListener("click", () => {
-  const humanSelection = getHumanChoice();
-  const randomComputerChoice = getComputerChoice(choices);
+  const humanSelection = getHumanChoice(); // Get human choice on each click
+  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
 
+  //   Logs the choices of the user and computer to the console.
   console.log("Human choice:", humanSelection);
   console.log("Computer choice:", randomComputerChoice);
 
-  playRound(humanSelection, randomComputerChoice);
+  //   playGame function is called and executes.
+  playGame();
 });
