@@ -35,6 +35,10 @@ function getHumanChoice(askChoice) {
   }
 }
 
+// creating score variables
+let humanScore = 0;
+let computerScore = 0;
+
 // creating button variable
 button = document.querySelector("#bttn");
 
@@ -76,23 +80,20 @@ function playRound(humanChoice, computerChoice) {
 
 // Play Game function
 function playGame() {
-  // creating score variables
-  let humanScore = 0;
-  let computerScore = 0;
-  
+  const humanSelection = getHumanChoice(); // Get human choice on each click
+  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
+
   // creating for loop to play the round 5 times
   for (let i = 0; i < 5; i++) {
     playRound(humanSelection, randomComputerChoice);
   }
   // declare winner
-  if (humanScore > computerScore) {
-    console.log("You did it! You've won the game! Congratulations, player!");
-  } else if (computerScore > humanScore) {
-    console.log("Oh no! The computer has won! AI World domination is upon us!");
-  }
+  // if (humanScore > computerScore) {
+  //   console.log("You did it! You've won the game! Congratulations, player!");
+  // } else if (computerScore > humanScore) {
+  //   console.log("Oh no! The computer has won! AI World domination is upon us!");
+  // }
 
-  const humanSelection = getHumanChoice(); // Get human choice on each click
-  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
 }
 
 // creating event listener for executing the the playRound function
