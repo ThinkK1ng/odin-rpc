@@ -52,7 +52,7 @@ function playRound(humanChoice, computerChoice) {
   ) {
     humanScore++;
     console.log(
-      `The Player wins! The score is now Player: ${humanScore} Computer: ${computerScore}`
+      `The Player wins the round! The score is now Player: ${humanScore} Computer: ${computerScore}`
     );
   }
   // if the computer wins
@@ -63,7 +63,7 @@ function playRound(humanChoice, computerChoice) {
   ) {
     computerScore++;
     console.log(
-      `Oh no! The computer won! The score is now Player: ${humanScore} Computer: ${computerScore}`
+      `Oh no! The computer won the round! The score is now Player: ${humanScore} Computer: ${computerScore}`
     );
   }
   // if it is a draw
@@ -86,20 +86,24 @@ function playGame() {
   // creating for loop to play the round 5 times
   for (let i = 0; i < 5; i++) {
     playRound(humanSelection, randomComputerChoice);
-  }
-  // declare winner
-  // if (humanScore > computerScore) {
-  //   console.log("You did it! You've won the game! Congratulations, player!");
-  // } else if (computerScore > humanScore) {
-  //   console.log("Oh no! The computer has won! AI World domination is upon us!");
-  // }
 
+    // declare winner
+    if (humanScore === 3) {
+      console.log("You did it! You've won the game! Congratulations, player!");
+      break;
+    } else if (computerScore === 3) {
+      console.log(
+        "Oh no! The computer has won the game! AI World domination is upon us!"
+      );
+      break;
+    }
+  }
 }
 
 // creating event listener for executing the the playRound function
 button.addEventListener("click", () => {
-  const humanSelection = getHumanChoice(); // Get human choice on each click
-  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
+  humanSelection = getHumanChoice(); // Get human choice on each click
+  randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
 
   //   Logs the choices of the user and computer to the console.
   console.log("Human choice:", humanSelection);
