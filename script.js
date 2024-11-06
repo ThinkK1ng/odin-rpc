@@ -78,37 +78,44 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
+button.addEventListener("click", playGame);
+
 // Play Game function
 function playGame() {
-  const humanSelection = getHumanChoice(); // Get human choice on each click
-  const randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
+  // alert declaring the start of the game.
+  alert(
+    "The AI takeover has begun! The world's future is at stake, but there is hope for humanity to come out on top! There's only one way to decide the fate of the world! Rock. Paper. Scissors. Defeat the computer in a best of five match to have humanity reign supreme! Lose, and watch the world around you descend into to digital chaos. Click the Play Round button below to begin. Good luck, player!"
+  );
 
-  // creating for loop to play the round 5 times
-  for (let i = 0; i < 5; i++) {
+  // changing old button event from playGame to playRound.
+  button.removeEventListener("click", playGame);
+
+  // changing the name of the button
+  button.innerText = "Play Round!";
+
+  // creating event listener for executing the the playRound function
+  button.addEventListener("click", () => {
+    humanSelection = getHumanChoice(); // Get human choice on each click
+    randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
+
+    //   Logs the choices of the user and computer to the console.
+    console.log("Human choice:", humanSelection);
+    console.log("Computer choice:", randomComputerChoice);
+
+    //   playGame function is called and executes.
     playRound(humanSelection, randomComputerChoice);
 
-    // declare winner
+    // check for winner after each round and declare the winner
     if (humanScore === 3) {
       console.log("You did it! You've won the game! Congratulations, player!");
-      break;
+      button.innerText = "Play again?";
+      button.removeEventListener("click", playRound);
     } else if (computerScore === 3) {
       console.log(
         "Oh no! The computer has won the game! AI World domination is upon us!"
       );
-      break;
+      button.innerText = "Play again?";
+      button.removeEventListener("click", playRound);
     }
-  }
+  });
 }
-
-// creating event listener for executing the the playRound function
-button.addEventListener("click", () => {
-  humanSelection = getHumanChoice(); // Get human choice on each click
-  randomComputerChoice = getComputerChoice(choices); // Get a new computer choice.
-
-  //   Logs the choices of the user and computer to the console.
-  console.log("Human choice:", humanSelection);
-  console.log("Computer choice:", randomComputerChoice);
-
-  //   playGame function is called and executes.
-  playGame();
-});
